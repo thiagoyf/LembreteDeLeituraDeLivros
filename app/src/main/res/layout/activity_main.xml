@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.thiagoyf.lembretedeleituradelivros.MainActivity">
+
+    <Button
+        android:id="@+id/btnCadastroDeLivros"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cadastro de Livros"/>
+
+    <Button
+        android:id="@+id/btnListaDeLivros"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lista de Livros"/>
+
+    <Button
+        android:id="@+id/btnCadastroDeLembretes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cadastro de Lembretes"/>
+
+    <Button
+        android:id="@+id/btnListaDeLembretes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lista de Lembretes"/>
+</LinearLayout>
