@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.thiagoyf.lembretedeleituradelivros.MainActivity">
 
-    <Button
-        android:id="@+id/btnCadastroDeLivros"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cadastro de Livros"/>
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnListaDeLivros"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lista de Livros"/>
+        <Button
+            android:id="@+id/main_btnCadastroDeLivros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="@string/main_btnCadastroDeLivros" />
 
-    <Button
-        android:id="@+id/btnCadastroDeLembretes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cadastro de Lembretes"/>
+        <Button
+            android:id="@+id/main_btnListaDeLivros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="@string/main_btnListarLivros" />
 
-    <Button
-        android:id="@+id/btnListaDeLembretes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lista de Lembretes"/>
-</LinearLayout>
+        <Button
+            android:id="@+id/main_btnCadastroDeLembretes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="@string/main_btnCadastroDeLembretes" />
+
+        <Button
+            android:id="@+id/main_btnListaDeLembretes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="@string/main_btnListarLembretes" />
+
+    </LinearLayout>
+
+</ScrollView>

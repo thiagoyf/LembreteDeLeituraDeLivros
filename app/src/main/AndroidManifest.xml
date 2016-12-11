@@ -15,6 +15,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CadastrarLivroActivity"
+            android:label="@string/title_activity_cadastrar_livro">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".ListarLivrosActivity"
+            android:label="@string/title_activity_listar_livros">
+        </activity>
     </application>
 
 </manifest>

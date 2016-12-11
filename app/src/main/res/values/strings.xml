@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">LembreteDeLeituraDeLivros</string>
+    <!-- Titles -->
+    <string name="app_name">Lembrete de Leitura de Livros</string>
+    <string name="title_activity_cadastrar_livro">Cadastrar Livro</string>
+    <string name="title_activity_listar_livros">Listar Livros</string>
+
+    <!-- Main Activity -->
+
+    <string name="main_btnCadastroDeLivros">Cadastro de Livros</string>
+    <string name="main_btnListarLivros">Listar Livros</string>
+    <string name="main_btnCadastroDeLembretes">Cadastro de Lembretes</string>
+    <string name="main_btnListarLembretes">Listar Lembretes</string>
+
+    <!-- Cadastrar Livro Activity -->
+    <string name="cadastrarLivro_txtNome">Nome:</string>
+    <string name="cadastrarLivro_txtTotalDePaginas">Total de Página:</string>
+    <string name="cadastrarLivro_hintNome">Título do livro, nome do livro</string>
+    <string name="cadastrarLivro_hintTotalDePaginas">Quantidade total de páginas</string>
+    <string name="cadastrarLivro_btnCadastrar">Cadastrar</string>
 </resources>
