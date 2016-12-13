@@ -30,38 +30,6 @@ public class LivroDao {
         return sqLiteDatabase;
     }
 
-    /**
-     * Lista todos os Livros retornando o id, nome e total de paginas deles.
-     *
-     * @param ordenadoPor um inteiro representando como a lista será ordanada
-     * @return uma lista de Objetos do tipo livro
-     */
-    public List<Livro> listarLivro(int ordenadoPor, boolean crescente) {
-        String[] projecao = {
-                DataBaseHelper.LIVRO_ID,
-                DataBaseHelper.LIVRO_NOME,
-                DataBaseHelper.LIVRO_TOTAL_PAGINAS
-        };
-
-
-        String ordenarPor = null;
-        switch (ordenadoPor) {
-            case 1:
-                ordenarPor = DataBaseHelper.LIVRO_ID;
-                break;
-            case 2:
-                ordenarPor = DataBaseHelper.LIVRO_NOME;
-                break;
-            case 3:
-                ordenarPor = DataBaseHelper.LIVRO_TOTAL_PAGINAS;
-                break;
-            default:
-                break;
-        }
-
-        return null;
-    }
-
     public List<Livro> listarLivro() {
         String[] projecao = {
                 DataBaseHelper.LIVRO_ID,
@@ -92,12 +60,6 @@ public class LivroDao {
         valores.put(DataBaseHelper.LIVRO_NOME, livro.getNome());
         valores.put(DataBaseHelper.LIVRO_TOTAL_PAGINAS, livro.getTotalPaginas());
 
-        Integer livroId = new Integer(livro.getId());
-        if (livroId != null) {
-            return getDatabase().update(DataBaseHelper.LIVRO_TABLE, valores, " id = ?",
-                    new String[]{Integer.toString(livro.getId())});
-        }
-
         return getDatabase().insert(DataBaseHelper.LIVRO_TABLE, null, valores);
     }
 
@@ -111,17 +73,40 @@ public class LivroDao {
         Cursor cursor = getDatabase().query(DataBaseHelper.LIVRO_TABLE, projecao, "id = ?",
                 new String[]{Integer.toString(id)}, null, null, null);
 
-        if (cursor.moveToNext()){
-            Livro livro = new Livro(
+        Livro livro = null;
+        if (cursor.moveToFirst()){
+            livro = new Livro(
                     cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_ID)),
                     cursor.getString(cursor.getColumnIndex(DataBaseHelper.LIVRO_NOME)),
                     cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_TOTAL_PAGINAS))
             );
-            cursor.close();
-            return livro;
         }
 
-        return null;
+        cursor.close();
+        return livro;
+    }
+
+    public Livro buscarLivroPorNome(String nome) {
+        String[] projecao = {
+                DataBaseHelper.LIVRO_ID,
+                DataBaseHelper.LIVRO_NOME,
+                DataBaseHelper.LIVRO_TOTAL_PAGINAS
+        };
+
+        Cursor cursor = getDatabase().query(DataBaseHelper.LIVRO_TABLE, projecao,
+                DataBaseHelper.LIVRO_NOME + " = ?", new String[]{ nome }, null, null, null);
+
+        Livro livro = null;
+        if (cursor.moveToFirst()){
+            livro = new Livro(
+                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_ID)),
+                    cursor.getString(cursor.getColumnIndex(DataBaseHelper.LIVRO_NOME)),
+                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_TOTAL_PAGINAS))
+            );
+        }
+
+        cursor.close();
+        return livro;
     }
 
     public void close() {

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_cadastrar_lembrete"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_margin="@dimen/custom_dimen_10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/CustomTextView"
+            android:text="@string/cadastrarLembrete_txtData"/>
+
+        <EditText
+            android:id="@+id/cadastrarLembrete_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_dimen_10dp"
+            android:focusable="false"
+            android:clickable="true"
+            android:inputType="date"
+            android:onClick="selecionaData"/>
+
+        <TextView
+            style="@style/CustomTextView"
+            android:text="@string/cadastrarLembrete_txtHora"/>
+
+        <EditText
+            android:id="@+id/cadastrarLembrete_tempo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_dimen_10dp"
+            android:focusable="false"
+            android:clickable="true"
+            android:inputType="time"
+            android:onClick="selecionaHora">
+        </EditText>
+
+        <TextView
+            style="@style/CustomTextView"
+            android:text="@string/cadastrarLembrete_txtLivro"/>
+
+        <Spinner
+            android:id="@+id/cadastrarLembrete_livro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </Spinner>
+
+        <Button
+            android:id="@+id/cadastrarLembrete_btnCadastrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cadastrarLivro_btnCadastrar"/>
+
+    </LinearLayout>
+
+</ScrollView>

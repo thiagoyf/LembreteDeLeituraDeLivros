@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.main_btnCadastroDeLembretes:
+                intent.setClass(this, CadastrarLembreteActivity.class);
                 break;
 
             case R.id.main_btnListaDeLembretes:

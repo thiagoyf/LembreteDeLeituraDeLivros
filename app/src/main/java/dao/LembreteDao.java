@@ -60,12 +60,6 @@ public class LembreteDao {
         valores.put(DataBaseHelper.LEMBRETE_DATA, lembrete.getDatahora());
         valores.put(DataBaseHelper.LEMBRETE_LIVRO, lembrete.getLivroId());
 
-        Integer lembreteId = new Integer(lembrete.getId());
-        if (lembreteId != null) {
-            return getDatabase().update(DataBaseHelper.LEMBRETE_ID, valores, " id = ?",
-                    new String[]{Integer.toString(lembrete.getId())});
-        }
-
         return getDatabase().insert(DataBaseHelper.LEMBRETE_ID, null, valores);
     }
 

@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     // Nome do DataBase
-    private static final String DATABASE_NAME = "lembreteDeLeituraDeLivros.db";
+    private static final String DATABASE_NAME = "lembreteDeLeituraDeLivros";
     private static final int DATABASE_VERSION = 1;
 
     // Nome das tabelas
@@ -32,17 +32,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_LIVRO_TABLE = "CREATE TABLE IF NOT EXISTS "
             + LIVRO_TABLE + "("
             + LIVRO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + LIVRO_NOME + " TEXT, "
-            + LIVRO_TOTAL_PAGINAS + " INTEGER" +
-            ")";
-    public static final String CREATE_LEMBRETE_TABLE = "CREATE TABLE IF NOT EXISTS"
+            + LIVRO_NOME + " TEXT UNIQUE, "
+            + LIVRO_TOTAL_PAGINAS + " INTEGER)";
+    public static final String CREATE_LEMBRETE_TABLE = "CREATE TABLE IF NOT EXISTS "
             + LEMBRETE_TABLE + "("
             + LEMBRETE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + LEMBRETE_DATA + " TEXT, "
-            + LEMBRETE_LIVRO + " INTEGER, " +
-            "FOREIGN KEY("
+            + LEMBRETE_LIVRO + " INTEGER, "
+            + "FOREIGN KEY ("
             + LEMBRETE_LIVRO + ") REFERENCES "
-            + LIVRO_TABLE + "("
+            + LIVRO_TABLE + " ("
             + LIVRO_ID + "))";
 
 

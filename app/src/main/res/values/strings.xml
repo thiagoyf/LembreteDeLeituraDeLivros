@@ -5,16 +5,29 @@
     <string name="title_activity_listar_livros">Listar Livros</string>
 
     <!-- Main Activity -->
-
     <string name="main_btnCadastroDeLivros">Cadastro de Livros</string>
-    <string name="main_btnListarLivros">Listar Livros</string>
+    <string name="main_btnListarLivros">Lista de Livros</string>
     <string name="main_btnCadastroDeLembretes">Cadastro de Lembretes</string>
-    <string name="main_btnListarLembretes">Listar Lembretes</string>
+    <string name="main_btnListarLembretes">Lista de Lembretes</string>
 
     <!-- Cadastrar Livro Activity -->
     <string name="cadastrarLivro_txtNome">Nome:</string>
-    <string name="cadastrarLivro_txtTotalDePaginas">Total de Página:</string>
+    <string name="cadastrarLivro_txtTotalPaginas">Total de Página:</string>
     <string name="cadastrarLivro_hintNome">Título do livro, nome do livro</string>
-    <string name="cadastrarLivro_hintTotalDePaginas">Quantidade total de páginas</string>
+    <string name="cadastrarLivro_hintTotalPaginas">Quantidade total de páginas</string>
     <string name="cadastrarLivro_btnCadastrar">Cadastrar</string>
+
+    <!-- Cadastrar Lembrete Activity -->
+    <string name="cadastrarLembrete_txtData">Data:</string>
+    <string name="cadastrarLembrete_txtHora">Hora:</string>
+    <string name="cadastrarLembrete_txtLivro">Livro:</string>
+
+    <!-- Validação -->
+    <string name="campoObrigatório">Campo obrigatório!</string>
+
+    <!-- Mensagem -->
+    <string name="livroJaCadastrado">Livro já cadastrado!</string>
+    <string name="livroCadastradoSucesso">Livro cadastrado com sucesso!</string>
+    <string name="erroCadastro">Erro ao cadastrar!</string>
+
 </resources>
