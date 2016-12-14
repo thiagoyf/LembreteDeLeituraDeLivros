@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -21,7 +22,7 @@ import dao.LembreteDao;
 import dao.LivroDao;
 import model.Lembrete;
 import model.Livro;
-import util.FormataData;
+import util.DataUtil;
 
 public class CadastrarLembreteActivity extends AppCompatActivity {
 
@@ -55,6 +56,10 @@ public class CadastrarLembreteActivity extends AppCompatActivity {
 
     public void selecionaData(View view) {
         final Calendar c = Calendar.getInstance();
+
+        final DecimalFormat fourDigits = new DecimalFormat("0000");
+        final DecimalFormat twoDigits = new DecimalFormat("00");
+
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -66,8 +71,8 @@ public class CadastrarLembreteActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
 
-                        edtData.setText(String.format("%02d", dayOfMonth) + "-" + String.format
-                                ("%02d", (monthOfYear + 1)) + "-" + String.format("%04d", year));
+                        edtData.setText(twoDigits.format(dayOfMonth) + "-" + twoDigits.format
+                                (monthOfYear + 1) + "-" + fourDigits.format(year));
 
                     }
                 }, mYear, mMonth, mDay);
@@ -77,6 +82,9 @@ public class CadastrarLembreteActivity extends AppCompatActivity {
 
     public void selecionaHora(View view) {
         final Calendar c = Calendar.getInstance();
+
+        final DecimalFormat twoDigits = new DecimalFormat("00");
+
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
 
@@ -87,8 +95,8 @@ public class CadastrarLembreteActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
 
-                        edtHora.setText(String.format("%02d", hourOfDay) + ":" + String.format
-                                ("%02d", minute));
+                        edtHora.setText(twoDigits.format(hourOfDay) + ":" + twoDigits.format
+                                (minute));
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();
@@ -101,7 +109,7 @@ public class CadastrarLembreteActivity extends AppCompatActivity {
         String livroSelecionado = null;
         int idLivroSelecionado = -1;
 
-        Boolean validacao = true;
+        boolean validacao = true;
         if (data == null || data.equals("")) {
             validacao = false;
             edtData.setError(getString(R.string.campoObrigatório));
@@ -121,8 +129,18 @@ public class CadastrarLembreteActivity extends AppCompatActivity {
         }
 
         if (validacao) {
+            if (!DataUtil.dataFutura(data, hora)) {
+                validacao = false;
+                edtData.setError(getString(R.string.selecioneDataFutura));
+                edtHora.setError(getString(R.string.selecioneDataFutura));
+                Toast.makeText(this, getString(R.string.selecioneDataFutura), Toast.LENGTH_LONG)
+                        .show();
+            }
+        }
+
+        if (validacao) {
             Lembrete lembrete = new Lembrete();
-            lembrete.setDatahora(FormataData.formatPtDb(data, hora));
+            lembrete.setDatahora(DataUtil.formatPtDb(data, hora));
             lembrete.setLivroId(idLivroSelecionado);
 
             long resultado = lembreteDao.salvarLembrete(lembrete);

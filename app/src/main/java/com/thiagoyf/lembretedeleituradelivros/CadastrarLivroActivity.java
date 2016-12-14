@@ -32,7 +32,7 @@ public class CadastrarLivroActivity extends AppCompatActivity {
         String nome = edtLivroNome.getText().toString();
         String totalPaginas = edtLivroTotalPaginas.getText().toString();
 
-        Boolean validacao = true;
+        boolean validacao = true;
         if (nome == null || nome.equals("")) {
             validacao = false;
             edtLivroNome.setError(getString(R.string.campoObrigatório));

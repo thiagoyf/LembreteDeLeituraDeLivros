@@ -3,6 +3,7 @@
     <string name="app_name">Lembrete de Leitura de Livros</string>
     <string name="title_activity_cadastrar_livro">Cadastrar Livro</string>
     <string name="title_activity_listar_livros">Listar Livros</string>
+    <string name="title_activity_cadastrar_lembrete">Cadastrar Lembrete</string>
 
     <!-- Main Activity -->
     <string name="main_btnCadastroDeLivros">Cadastro de Livros</string>
@@ -29,6 +30,7 @@
     <string name="livroJaCadastrado">Livro já cadastrado!</string>
     <string name="livroCadastradoSucesso">Livro cadastrado com sucesso!</string>
     <string name="lembreteCadastradoSucesso">Lembrete cadastrado com sucesso!</string>
+    <string name="selecioneDataFutura">Selecione uma data futura!</string>
     <string name="semLivro">Cadastre primeiro um livro!</string>
     <string name="erroCadastro">Erro ao cadastrar!</string>
 
