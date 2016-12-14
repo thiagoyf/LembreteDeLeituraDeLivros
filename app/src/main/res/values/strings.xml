@@ -12,6 +12,7 @@
     <string name="main_btnListarLembretes">Lista de Lembretes</string>
 
     <!-- Cadastrar Livro Activity -->
+    <string name="cadastrarLivro_txtCapaLivro">Capa do Livro:</string>
     <string name="cadastrarLivro_txtNome">Nome:</string>
     <string name="cadastrarLivro_txtTotalPaginas">Total de Página:</string>
     <string name="cadastrarLivro_hintNome">Título do livro, nome do livro</string>
@@ -33,5 +34,6 @@
     <string name="selecioneDataFutura">Selecione uma data futura!</string>
     <string name="semLivro">Cadastre primeiro um livro!</string>
     <string name="erroCadastro">Erro ao cadastrar!</string>
+    <string name="erroImagem">Não foi possível de abrir a Imagem!</string>
 
 </resources>
