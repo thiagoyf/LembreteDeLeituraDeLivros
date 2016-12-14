@@ -56,11 +56,10 @@ public class LembreteDao {
 
     public long salvarLembrete(Lembrete lembrete) {
         ContentValues valores = new ContentValues();
-        valores.put(DataBaseHelper.LEMBRETE_ID, lembrete.getId());
         valores.put(DataBaseHelper.LEMBRETE_DATA, lembrete.getDatahora());
         valores.put(DataBaseHelper.LEMBRETE_LIVRO, lembrete.getLivroId());
 
-        return getDatabase().insert(DataBaseHelper.LEMBRETE_ID, null, valores);
+        return getDatabase().insert(DataBaseHelper.LEMBRETE_TABLE, null, valores);
     }
 
     public Lembrete buscarLembretePorId(int id) {

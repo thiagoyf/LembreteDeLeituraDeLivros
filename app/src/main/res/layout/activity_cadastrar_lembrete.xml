@@ -46,13 +46,15 @@
         <Spinner
             android:id="@+id/cadastrarLembrete_livro"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_dimen_10dp">
         </Spinner>
 
         <Button
             android:id="@+id/cadastrarLembrete_btnCadastrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="cadastrarLembrete"
             android:text="@string/cadastrarLivro_btnCadastrar"/>
 
     </LinearLayout>

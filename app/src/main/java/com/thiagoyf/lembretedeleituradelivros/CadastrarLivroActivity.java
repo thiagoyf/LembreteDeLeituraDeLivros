@@ -1,5 +1,6 @@
 package com.thiagoyf.lembretedeleituradelivros;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -52,14 +53,17 @@ public class CadastrarLivroActivity extends AppCompatActivity {
 
                 if (resultado != -1){
                     Toast.makeText(this, getString(R.string.livroCadastradoSucesso),
-                            Toast.LENGTH_LONG);
+                            Toast.LENGTH_LONG).show();
 
+                    finish();
+                    startActivity(new Intent(this, MainActivity.class));
                 } else {
                     Toast.makeText(this, getString(R.string.erroCadastro),
-                            Toast.LENGTH_LONG);
+                            Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(this, getString(R.string.livroJaCadastrado), Toast.LENGTH_LONG);
+                Toast.makeText(this, getString(R.string.livroJaCadastrado),
+                        Toast.LENGTH_LONG).show();
             }
         }
     }

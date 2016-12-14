@@ -28,6 +28,8 @@
     <!-- Mensagem -->
     <string name="livroJaCadastrado">Livro já cadastrado!</string>
     <string name="livroCadastradoSucesso">Livro cadastrado com sucesso!</string>
+    <string name="lembreteCadastradoSucesso">Lembrete cadastrado com sucesso!</string>
+    <string name="semLivro">Cadastre primeiro um livro!</string>
     <string name="erroCadastro">Erro ao cadastrar!</string>
 
 </resources>

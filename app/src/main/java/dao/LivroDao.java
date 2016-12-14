@@ -56,7 +56,6 @@ public class LivroDao {
 
     public long salvarLivro(Livro livro) {
         ContentValues valores = new ContentValues();
-        valores.put(DataBaseHelper.LIVRO_ID, livro.getId());
         valores.put(DataBaseHelper.LIVRO_NOME, livro.getNome());
         valores.put(DataBaseHelper.LIVRO_TOTAL_PAGINAS, livro.getTotalPaginas());
 
