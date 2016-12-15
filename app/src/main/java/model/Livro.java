@@ -9,13 +9,15 @@ public class Livro {
     private int id;
     private String nome;
     private int totalPaginas;
+    private byte[] foto;
 
     public Livro(){ }
 
-    public Livro(int id, String nome, int totalPaginas){
+    public Livro(int id, String nome, int totalPaginas, byte[] foto){
         this.id = id;
         this.nome = nome;
         this.totalPaginas = totalPaginas;
+        this.foto = foto;
     }
 
     public int getId() {
@@ -42,4 +44,11 @@ public class Livro {
         this.totalPaginas = totalPaginas;
     }
 
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto){
+        this.foto = foto;
+    }
 }

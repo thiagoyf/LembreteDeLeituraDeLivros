@@ -34,7 +34,8 @@ public class LivroDao {
         String[] projecao = {
                 DataBaseHelper.LIVRO_ID,
                 DataBaseHelper.LIVRO_NOME,
-                DataBaseHelper.LIVRO_TOTAL_PAGINAS
+                DataBaseHelper.LIVRO_TOTAL_PAGINAS,
+                DataBaseHelper.LIVRO_FOTO
         };
 
         Cursor cursor = getDatabase().query(DataBaseHelper.LIVRO_TABLE, projecao,
@@ -45,7 +46,8 @@ public class LivroDao {
             Livro livro = new Livro(
                     cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_ID)),
                     cursor.getString(cursor.getColumnIndex(DataBaseHelper.LIVRO_NOME)),
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_TOTAL_PAGINAS))
+                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_TOTAL_PAGINAS)),
+                    cursor.getBlob(cursor.getColumnIndex(DataBaseHelper.LIVRO_FOTO))
             );
             livros.add(livro);
         }
@@ -58,6 +60,7 @@ public class LivroDao {
         ContentValues valores = new ContentValues();
         valores.put(DataBaseHelper.LIVRO_NOME, livro.getNome());
         valores.put(DataBaseHelper.LIVRO_TOTAL_PAGINAS, livro.getTotalPaginas());
+        valores.put(DataBaseHelper.LIVRO_FOTO, livro.getFoto());
 
         return getDatabase().insert(DataBaseHelper.LIVRO_TABLE, null, valores);
     }
@@ -66,7 +69,8 @@ public class LivroDao {
         String[] projecao = {
                 DataBaseHelper.LIVRO_ID,
                 DataBaseHelper.LIVRO_NOME,
-                DataBaseHelper.LIVRO_TOTAL_PAGINAS
+                DataBaseHelper.LIVRO_TOTAL_PAGINAS,
+                DataBaseHelper.LIVRO_FOTO
         };
 
         Cursor cursor = getDatabase().query(DataBaseHelper.LIVRO_TABLE, projecao, "id = ?",
@@ -77,7 +81,8 @@ public class LivroDao {
             livro = new Livro(
                     cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_ID)),
                     cursor.getString(cursor.getColumnIndex(DataBaseHelper.LIVRO_NOME)),
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_TOTAL_PAGINAS))
+                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_TOTAL_PAGINAS)),
+                    cursor.getBlob(cursor.getColumnIndex(DataBaseHelper.LIVRO_FOTO))
             );
         }
 
@@ -89,7 +94,8 @@ public class LivroDao {
         String[] projecao = {
                 DataBaseHelper.LIVRO_ID,
                 DataBaseHelper.LIVRO_NOME,
-                DataBaseHelper.LIVRO_TOTAL_PAGINAS
+                DataBaseHelper.LIVRO_TOTAL_PAGINAS,
+                DataBaseHelper.LIVRO_FOTO
         };
 
         Cursor cursor = getDatabase().query(DataBaseHelper.LIVRO_TABLE, projecao,
@@ -100,7 +106,8 @@ public class LivroDao {
             livro = new Livro(
                     cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_ID)),
                     cursor.getString(cursor.getColumnIndex(DataBaseHelper.LIVRO_NOME)),
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_TOTAL_PAGINAS))
+                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_TOTAL_PAGINAS)),
+                    cursor.getBlob(cursor.getColumnIndex(DataBaseHelper.LIVRO_FOTO))
             );
         }
 

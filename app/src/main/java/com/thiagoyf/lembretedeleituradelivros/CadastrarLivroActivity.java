@@ -1,9 +1,12 @@
 package com.thiagoyf.lembretedeleituradelivros;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,6 +25,7 @@ import java.io.InputStream;
 
 import dao.LivroDao;
 import model.Livro;
+import util.ImagemUtil;
 
 public class CadastrarLivroActivity extends AppCompatActivity {
 
@@ -40,6 +45,7 @@ public class CadastrarLivroActivity extends AppCompatActivity {
         edtLivroNome = (EditText) findViewById(R.id.cadastrarLivro_edtNome);
         edtLivroTotalPaginas = (EditText) findViewById(R.id.cadastrarLivro_edtTotalDePaginas);
         imgLivro = (ImageView) findViewById(R.id.cadastrarLivro_imgLivro);
+        imgLivro.setBackgroundResource(R.drawable.no_image_available);
 
         livroDao = new LivroDao(this);
     }
@@ -47,14 +53,15 @@ public class CadastrarLivroActivity extends AppCompatActivity {
     public void cadastrarLivro(View view) {
         String nome = edtLivroNome.getText().toString();
         String totalPaginas = edtLivroTotalPaginas.getText().toString();
+        byte[] image = imageViewToByte(imgLivro);
 
         boolean validacao = true;
-        if (nome == null || nome.equals("")) {
+        if (nome.equals("")) {
             validacao = false;
             edtLivroNome.setError(getString(R.string.campoObrigatório));
         }
 
-        if (totalPaginas == null || totalPaginas.equals("")) {
+        if (totalPaginas.equals("")) {
             validacao = false;
             edtLivroTotalPaginas.setError(getString(R.string.campoObrigatório));
         }
@@ -63,6 +70,7 @@ public class CadastrarLivroActivity extends AppCompatActivity {
             Livro livro = new Livro();
             livro.setNome(nome);
             livro.setTotalPaginas(Integer.parseInt(totalPaginas));
+            livro.setFoto(image);
 
             if (livroDao.buscarLivroPorNome(nome) == null) {
                 long resultado = livroDao.salvarLivro(livro);
@@ -85,8 +93,6 @@ public class CadastrarLivroActivity extends AppCompatActivity {
     }
 
     public void pegaImagem(View view) {
-        escondeTeclado(this);
-
         Intent intentPegaImagem = new Intent(Intent.ACTION_PICK);
 
         File diretorioImagem = Environment.getExternalStoragePublicDirectory(Environment
@@ -96,7 +102,9 @@ public class CadastrarLivroActivity extends AppCompatActivity {
         Uri uri = Uri.parse(caminhoDiretorioImagem);
         intentPegaImagem.setDataAndType(uri, "image/*");
 
+
         startActivityForResult(intentPegaImagem, GALLERY_REQUEST);
+
     }
 
     @Override
@@ -119,15 +127,19 @@ public class CadastrarLivroActivity extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Log.d("ImagePicker", getString(R.string.erroImagem));
-                Toast.makeText(this, getString(R.string.erroImagem), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.erroImagem),
+                        Toast.LENGTH_LONG).show();
             }
         }
     }
 
-    public static void escondeTeclado(Activity activity) {
-        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService
-                (Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+    private static byte[] imageViewToByte(ImageView imageView) {
+        if (imageView.getDrawable() == null) {
+            return null;
+        }
+
+        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        return ImagemUtil.bitmapToByte(bitmap);
     }
 
     @Override

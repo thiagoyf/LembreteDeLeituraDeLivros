@@ -22,6 +22,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String LIVRO_ID = "id";
     public static final String LIVRO_NOME = "livro_nome";
     public static final String LIVRO_TOTAL_PAGINAS = "total_paginas";
+    public static final String LIVRO_FOTO = "foto";
 
     // Tabela Lembrete
     public static final String LEMBRETE_ID = "id";
@@ -33,7 +34,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + LIVRO_TABLE + "("
             + LIVRO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + LIVRO_NOME + " TEXT UNIQUE, "
-            + LIVRO_TOTAL_PAGINAS + " INTEGER)";
+            + LIVRO_TOTAL_PAGINAS + " INTEGER, "
+            + LIVRO_FOTO + " BLOB)";
     public static final String CREATE_LEMBRETE_TABLE = "CREATE TABLE IF NOT EXISTS "
             + LEMBRETE_TABLE + "("
             + LEMBRETE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -44,6 +46,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + LIVRO_TABLE + " ("
             + LIVRO_ID + "))";
 
+    // DELETE DATABASE
+    public static final String DROP_LIVRO_TABLE = "DROP TABLE IF EXISTS " + LIVRO_TABLE;
+    public static final String DROP_LEMBRETE_TABLE = "DROP TABLE IF EXISTS " + LEMBRETE_TABLE;
 
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -63,6 +68,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        sqLiteDatabase.execSQL(DROP_LEMBRETE_TABLE);
+        sqLiteDatabase.execSQL(DROP_LIVRO_TABLE);
+        onCreate(sqLiteDatabase);
     }
 }

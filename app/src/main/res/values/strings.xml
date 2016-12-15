@@ -34,6 +34,6 @@
     <string name="selecioneDataFutura">Selecione uma data futura!</string>
     <string name="semLivro">Cadastre primeiro um livro!</string>
     <string name="erroCadastro">Erro ao cadastrar!</string>
-    <string name="erroImagem">Não foi possível de abrir a Imagem!</string>
+    <string name="erroImagem">Não foi possível abrir a imagem!</string>
 
 </resources>

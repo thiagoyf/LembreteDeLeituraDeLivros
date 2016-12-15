@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.thiagoyf.lembretedeleituradelivros.R;
@@ -13,6 +14,7 @@ import com.thiagoyf.lembretedeleituradelivros.R;
 import java.util.List;
 
 import model.Livro;
+import util.ImagemUtil;
 
 /**
  * Created by thiagoyf on 12/12/16.
@@ -51,6 +53,13 @@ public class LivroAdapter extends BaseAdapter {
             LayoutInflater layoutInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.livro, null);
+        }
+
+        ImageView imagem = (ImageView) view.findViewById(R.id.livro_imagem);
+        if (livro.getFoto() != null) {
+            imagem.setImageBitmap(ImagemUtil.byteToBitmap(livro.getFoto()));
+        } else {
+            imagem.setImageResource(R.drawable.no_image_available);
         }
 
         TextView nome = (TextView) view.findViewById(R.id.livro_nome);
