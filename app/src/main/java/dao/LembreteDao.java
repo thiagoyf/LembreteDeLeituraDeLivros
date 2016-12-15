@@ -15,16 +15,16 @@ import model.Lembrete;
  */
 
 public class LembreteDao {
-    private DataBaseHelper dataBaseHelper;
+    private DatabaseHelper databaseHelper;
     private SQLiteDatabase sqLiteDatabase;
 
     public LembreteDao (Context context){
-        dataBaseHelper = new DataBaseHelper(context);
+        databaseHelper = new DatabaseHelper(context);
     }
 
     public SQLiteDatabase getDatabase() {
         if (sqLiteDatabase == null) {
-            sqLiteDatabase = dataBaseHelper.getWritableDatabase();
+            sqLiteDatabase = databaseHelper.getWritableDatabase();
         }
 
         return sqLiteDatabase;
@@ -32,20 +32,20 @@ public class LembreteDao {
 
     public List<Lembrete> listarLembrete(){
         String[] projecao = {
-                DataBaseHelper.LEMBRETE_ID,
-                DataBaseHelper.LEMBRETE_DATA,
-                DataBaseHelper.LEMBRETE_LIVRO,
+                DatabaseHelper.LEMBRETE_ID,
+                DatabaseHelper.LEMBRETE_DATA,
+                DatabaseHelper.LEMBRETE_LIVRO,
         };
 
-        Cursor cursor = getDatabase().query(DataBaseHelper.LEMBRETE_TABLE, projecao,
+        Cursor cursor = getDatabase().query(DatabaseHelper.LEMBRETE_TABLE, projecao,
                 null, null, null, null, null);
 
         List<Lembrete> lembretes = new ArrayList<Lembrete>();
         while (cursor.moveToNext()) {
             Lembrete lembrete = new Lembrete(
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LEMBRETE_ID)),
-                    cursor.getString(cursor.getColumnIndex(DataBaseHelper.LEMBRETE_DATA)),
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LEMBRETE_LIVRO))
+                    cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_ID)),
+                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_DATA)),
+                    cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_LIVRO))
             );
             lembretes.add(lembrete);
         }
@@ -56,27 +56,27 @@ public class LembreteDao {
 
     public long salvarLembrete(Lembrete lembrete) {
         ContentValues valores = new ContentValues();
-        valores.put(DataBaseHelper.LEMBRETE_DATA, lembrete.getDatahora());
-        valores.put(DataBaseHelper.LEMBRETE_LIVRO, lembrete.getLivroId());
+        valores.put(DatabaseHelper.LEMBRETE_DATA, lembrete.getDatahora());
+        valores.put(DatabaseHelper.LEMBRETE_LIVRO, lembrete.getLivroId());
 
-        return getDatabase().insert(DataBaseHelper.LEMBRETE_TABLE, null, valores);
+        return getDatabase().insert(DatabaseHelper.LEMBRETE_TABLE, null, valores);
     }
 
     public Lembrete buscarLembretePorId(int id) {
         String[] projecao = {
-                DataBaseHelper.LEMBRETE_ID,
-                DataBaseHelper.LEMBRETE_DATA,
-                DataBaseHelper.LEMBRETE_LIVRO,
+                DatabaseHelper.LEMBRETE_ID,
+                DatabaseHelper.LEMBRETE_DATA,
+                DatabaseHelper.LEMBRETE_LIVRO,
         };
 
-        Cursor cursor = getDatabase().query(DataBaseHelper.LEMBRETE_ID, projecao, "id = ?",
+        Cursor cursor = getDatabase().query(DatabaseHelper.LEMBRETE_ID, projecao, "id = ?",
                 new String[]{Integer.toString(id)}, null, null, null);
 
         if (cursor.moveToNext()){
             Lembrete lembrete = new Lembrete(
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LEMBRETE_ID)),
-                    cursor.getString(cursor.getColumnIndex(DataBaseHelper.LEMBRETE_DATA)),
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LEMBRETE_LIVRO))
+                    cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_ID)),
+                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_DATA)),
+                    cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_LIVRO))
             );
             cursor.close();
             return lembrete;
@@ -86,7 +86,7 @@ public class LembreteDao {
     }
 
     public void close() {
-        dataBaseHelper.close();
+        databaseHelper.close();
         sqLiteDatabase = null;
     }
 }

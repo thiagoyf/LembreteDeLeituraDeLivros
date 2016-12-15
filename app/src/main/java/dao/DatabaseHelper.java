@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by thiagoyf on 12/12/16.
  */
 
-public class DataBaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Nome do DataBase
     private static final String DATABASE_NAME = "lembreteDeLeituraDeLivros";
@@ -50,7 +50,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String DROP_LIVRO_TABLE = "DROP TABLE IF EXISTS " + LIVRO_TABLE;
     public static final String DROP_LEMBRETE_TABLE = "DROP TABLE IF EXISTS " + LEMBRETE_TABLE;
 
-    public DataBaseHelper(Context context) {
+    public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

@@ -15,16 +15,16 @@ import model.Livro;
  */
 
 public class LivroDao {
-    private DataBaseHelper dataBaseHelper;
+    private DatabaseHelper databaseHelper;
     private SQLiteDatabase sqLiteDatabase;
 
     public LivroDao(Context context) {
-        dataBaseHelper = new DataBaseHelper(context);
+        databaseHelper = new DatabaseHelper(context);
     }
 
     public SQLiteDatabase getDatabase() {
         if (sqLiteDatabase == null) {
-            sqLiteDatabase = dataBaseHelper.getWritableDatabase();
+            sqLiteDatabase = databaseHelper.getWritableDatabase();
         }
 
         return sqLiteDatabase;
@@ -32,22 +32,22 @@ public class LivroDao {
 
     public List<Livro> listarLivro() {
         String[] projecao = {
-                DataBaseHelper.LIVRO_ID,
-                DataBaseHelper.LIVRO_NOME,
-                DataBaseHelper.LIVRO_TOTAL_PAGINAS,
-                DataBaseHelper.LIVRO_FOTO
+                DatabaseHelper.LIVRO_ID,
+                DatabaseHelper.LIVRO_NOME,
+                DatabaseHelper.LIVRO_TOTAL_PAGINAS,
+                DatabaseHelper.LIVRO_FOTO
         };
 
-        Cursor cursor = getDatabase().query(DataBaseHelper.LIVRO_TABLE, projecao,
+        Cursor cursor = getDatabase().query(DatabaseHelper.LIVRO_TABLE, projecao,
                 null, null, null, null, null);
 
         List<Livro> livros = new ArrayList<Livro>();
         while (cursor.moveToNext()) {
             Livro livro = new Livro(
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_ID)),
-                    cursor.getString(cursor.getColumnIndex(DataBaseHelper.LIVRO_NOME)),
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_TOTAL_PAGINAS)),
-                    cursor.getBlob(cursor.getColumnIndex(DataBaseHelper.LIVRO_FOTO))
+                    cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LIVRO_ID)),
+                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.LIVRO_NOME)),
+                    cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LIVRO_TOTAL_PAGINAS)),
+                    cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.LIVRO_FOTO))
             );
             livros.add(livro);
         }
@@ -58,31 +58,31 @@ public class LivroDao {
 
     public long salvarLivro(Livro livro) {
         ContentValues valores = new ContentValues();
-        valores.put(DataBaseHelper.LIVRO_NOME, livro.getNome());
-        valores.put(DataBaseHelper.LIVRO_TOTAL_PAGINAS, livro.getTotalPaginas());
-        valores.put(DataBaseHelper.LIVRO_FOTO, livro.getFoto());
+        valores.put(DatabaseHelper.LIVRO_NOME, livro.getNome());
+        valores.put(DatabaseHelper.LIVRO_TOTAL_PAGINAS, livro.getTotalPaginas());
+        valores.put(DatabaseHelper.LIVRO_FOTO, livro.getFoto());
 
-        return getDatabase().insert(DataBaseHelper.LIVRO_TABLE, null, valores);
+        return getDatabase().insert(DatabaseHelper.LIVRO_TABLE, null, valores);
     }
 
     public Livro buscarLivroPorId(int id) {
         String[] projecao = {
-                DataBaseHelper.LIVRO_ID,
-                DataBaseHelper.LIVRO_NOME,
-                DataBaseHelper.LIVRO_TOTAL_PAGINAS,
-                DataBaseHelper.LIVRO_FOTO
+                DatabaseHelper.LIVRO_ID,
+                DatabaseHelper.LIVRO_NOME,
+                DatabaseHelper.LIVRO_TOTAL_PAGINAS,
+                DatabaseHelper.LIVRO_FOTO
         };
 
-        Cursor cursor = getDatabase().query(DataBaseHelper.LIVRO_TABLE, projecao, "id = ?",
+        Cursor cursor = getDatabase().query(DatabaseHelper.LIVRO_TABLE, projecao, "id = ?",
                 new String[]{Integer.toString(id)}, null, null, null);
 
         Livro livro = null;
         if (cursor.moveToFirst()){
             livro = new Livro(
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_ID)),
-                    cursor.getString(cursor.getColumnIndex(DataBaseHelper.LIVRO_NOME)),
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_TOTAL_PAGINAS)),
-                    cursor.getBlob(cursor.getColumnIndex(DataBaseHelper.LIVRO_FOTO))
+                    cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LIVRO_ID)),
+                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.LIVRO_NOME)),
+                    cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LIVRO_TOTAL_PAGINAS)),
+                    cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.LIVRO_FOTO))
             );
         }
 
@@ -92,22 +92,22 @@ public class LivroDao {
 
     public Livro buscarLivroPorNome(String nome) {
         String[] projecao = {
-                DataBaseHelper.LIVRO_ID,
-                DataBaseHelper.LIVRO_NOME,
-                DataBaseHelper.LIVRO_TOTAL_PAGINAS,
-                DataBaseHelper.LIVRO_FOTO
+                DatabaseHelper.LIVRO_ID,
+                DatabaseHelper.LIVRO_NOME,
+                DatabaseHelper.LIVRO_TOTAL_PAGINAS,
+                DatabaseHelper.LIVRO_FOTO
         };
 
-        Cursor cursor = getDatabase().query(DataBaseHelper.LIVRO_TABLE, projecao,
-                DataBaseHelper.LIVRO_NOME + " = ?", new String[]{ nome }, null, null, null);
+        Cursor cursor = getDatabase().query(DatabaseHelper.LIVRO_TABLE, projecao,
+                DatabaseHelper.LIVRO_NOME + " = ?", new String[]{ nome }, null, null, null);
 
         Livro livro = null;
         if (cursor.moveToFirst()){
             livro = new Livro(
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_ID)),
-                    cursor.getString(cursor.getColumnIndex(DataBaseHelper.LIVRO_NOME)),
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.LIVRO_TOTAL_PAGINAS)),
-                    cursor.getBlob(cursor.getColumnIndex(DataBaseHelper.LIVRO_FOTO))
+                    cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LIVRO_ID)),
+                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.LIVRO_NOME)),
+                    cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LIVRO_TOTAL_PAGINAS)),
+                    cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.LIVRO_FOTO))
             );
         }
 
@@ -116,7 +116,7 @@ public class LivroDao {
     }
 
     public void close() {
-        dataBaseHelper.close();
+        databaseHelper.close();
         sqLiteDatabase = null;
     }
 }
