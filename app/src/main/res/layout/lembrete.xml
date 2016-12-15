@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/custom_dimen_10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/lembrete_data"
+        style="@style/CustomTextView"/>
+
+    <TextView
+        android:id="@+id/lembrete_hora"
+        android:layout_marginTop="@dimen/custom_dimen_10dp"
+        android:layout_marginBottom="@dimen/custom_dimen_10dp"
+        style="@style/CustomTextView"/>
+
+    <TextView
+        android:id="@+id/lembrete_livro"
+        style="@style/CustomTextView"/>
+
+</LinearLayout>

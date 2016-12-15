@@ -19,10 +19,19 @@
     <string name="cadastrarLivro_hintTotalPaginas">Quantidade total de páginas</string>
     <string name="cadastrarLivro_btnCadastrar">Cadastrar</string>
 
+    <!-- Listar Livros -->
+    <string name="listarLivros_txtTitulo">Título do Livro: </string>
+    <string name="listarLivros_txtTotalPaginas">Total de Páginas: </string>
+
     <!-- Cadastrar Lembrete Activity -->
     <string name="cadastrarLembrete_txtData">Data:</string>
     <string name="cadastrarLembrete_txtHora">Hora:</string>
     <string name="cadastrarLembrete_txtLivro">Livro:</string>
+
+    <!-- Listar Lembrete Activity -->
+    <string name="listarLembretes_txtData">Data: </string>
+    <string name="listarLembretes_txtHora">Hora: </string>
+    <string name="listarLembretes_txtLivro">Livro: </string>
 
     <!-- Validação -->
     <string name="campoObrigatório">Campo obrigatório!</string>

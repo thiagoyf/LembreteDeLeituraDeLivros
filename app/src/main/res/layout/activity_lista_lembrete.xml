@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_listar_livros"
+    android:id="@+id/activity_lista_lembrete"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ListView
-        android:id="@+id/listarLivros_listaDeLivros"
+        android:id="@+id/listarLembrete_listaDeLembretes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="#888888"
         android:dividerHeight="1dp">
-
     </ListView>
+
 </LinearLayout>
