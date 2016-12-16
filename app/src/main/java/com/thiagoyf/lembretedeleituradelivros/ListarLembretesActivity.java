@@ -1,7 +1,10 @@
 package com.thiagoyf.lembretedeleituradelivros;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -33,6 +36,25 @@ public class ListarLembretesActivity extends AppCompatActivity {
 
         lembreteAdapter = new LembreteAdapter(this, lembretes);
         listView.setAdapter(lembreteAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Lembrete lembrete = (Lembrete) adapterView.getItemAtPosition(i);
+
+                Intent intent = new Intent(ListarLembretesActivity.this, LembreteActivity.class);
+                intent.putExtra("LEMBRETE_ID", lembrete.getId());
+                intent.putExtra("LEMBRETE_DATAHORA", lembrete.getDatahora());
+                intent.putExtra("LEMBRETE_REPETE", lembrete.getRepete());
+                intent.putExtra("LEMBRETE_ESTADO", lembrete.getEstado());
+                intent.putExtra("LIVRO_ID", lembrete.getLivro().getId());
+                intent.putExtra("LIVRO_NOME", lembrete.getLivro().getNome());
+                intent.putExtra("LIVRO_TOTALPAGINAS", lembrete.getLivro().getTotalPaginas());
+                intent.putExtra("LIVRO_FOTO", lembrete.getLivro().getFoto());
+
+                finish();
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

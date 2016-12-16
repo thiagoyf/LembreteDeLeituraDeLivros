@@ -15,6 +15,9 @@ import model.Livro;
  */
 
 public class LivroDao {
+    private static final int SALVAR = 1;
+    private static final int ATUALIZAR = 2;
+
     private DatabaseHelper databaseHelper;
     private SQLiteDatabase sqLiteDatabase;
 
@@ -52,20 +55,13 @@ public class LivroDao {
     }
 
     public long salvarLivro(Livro livro) {
-        ContentValues valores = new ContentValues();
-        valores.put(DatabaseHelper.LIVRO_NOME, livro.getNome());
-        valores.put(DatabaseHelper.LIVRO_TOTAL_PAGINAS, livro.getTotalPaginas());
-        valores.put(DatabaseHelper.LIVRO_FOTO, livro.getFoto());
+        ContentValues valores = buildContentValues(SALVAR,livro);
 
         return getDatabase().insert(DatabaseHelper.LIVRO_TABLE, null, valores);
     }
 
     public long atualizarLivro(Livro livro) {
-        ContentValues valores = new ContentValues();
-        valores.put(DatabaseHelper.LIVRO_ID, livro.getId());
-        valores.put(DatabaseHelper.LIVRO_NOME, livro.getNome());
-        valores.put(DatabaseHelper.LIVRO_TOTAL_PAGINAS, livro.getTotalPaginas());
-        valores.put(DatabaseHelper.LIVRO_FOTO, livro.getFoto());
+        ContentValues valores = buildContentValues(ATUALIZAR, livro);
 
         return getDatabase().update(DatabaseHelper.LIVRO_TABLE, valores, DatabaseHelper
                 .LEMBRETE_ID + " = ?", new String[]{String.valueOf(livro.getId())});
@@ -95,6 +91,19 @@ public class LivroDao {
 
         cursor.close();
         return livro;
+    }
+
+    private ContentValues buildContentValues(int option, Livro livro){
+        ContentValues valores = new ContentValues();
+        valores.put(DatabaseHelper.LIVRO_NOME, livro.getNome());
+        valores.put(DatabaseHelper.LIVRO_TOTAL_PAGINAS, livro.getTotalPaginas());
+        valores.put(DatabaseHelper.LIVRO_FOTO, livro.getFoto());
+
+        if (option == ATUALIZAR){
+            valores.put(DatabaseHelper.LIVRO_ID, livro.getId());
+        }
+
+        return valores;
     }
 
     private Livro getLivro(Cursor cursor) {

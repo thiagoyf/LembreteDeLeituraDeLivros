@@ -4,6 +4,8 @@
     <string name="title_activity_cadastrar_livro">Cadastrar Livro</string>
     <string name="title_activity_listar_livros">Listar Livros</string>
     <string name="title_activity_cadastrar_lembrete">Cadastrar Lembrete</string>
+    <string name="title_activity_listar_lembretes">Listar Lembretes</string>
+    <string name="title_activity_lembrete">Lembrete</string>
 
     <!-- Main Activity -->
     <string name="main_btnCadastroDeLivros">Cadastro de Livros</string>
@@ -27,10 +29,10 @@
     <string name="cadastrarLembrete_txtData">Data:</string>
     <string name="cadastrarLembrete_txtHora">Hora:</string>
     <string name="cadastrarLembrete_txtLivro">Livro:</string>
-    <string name="cadastrarLembrete_txtRepetir">Repetir: </string>
+    <string name="cadastrarLembrete_txtRepetir">Repetir:</string>
 
     <string-array name="cadastrarLembrete_frequencia">
-        <item></item>
+        <item>Nunca</item>
         <item>Todos os domingos</item>
         <item>Todas as segundas-feiras</item>
         <item>Todas as terças-feiras</item>
@@ -45,6 +47,7 @@
     <string name="listarLembretes_txtData">Data: </string>
     <string name="listarLembretes_txtHora">Hora: </string>
     <string name="listarLembretes_txtLivro">Livro: </string>
+    <string name="listarLembretes_txtRepetir">Repetir: </string>
 
     <!-- Validação -->
     <string name="campoObrigatório">Campo obrigatório!</string>
