@@ -16,6 +16,8 @@ import model.Livro;
  */
 
 public class LembreteDao {
+    private static final int SALVAR = 1;
+    private static final int ATUALIZAR = 2;
 
     private DatabaseHelper databaseHelper;
     private SQLiteDatabase sqLiteDatabase;
@@ -47,20 +49,13 @@ public class LembreteDao {
     }
 
     public long salvarLembrete(Lembrete lembrete) {
-        ContentValues valores = new ContentValues();
-        valores.put(DatabaseHelper.LEMBRETE_DATA, lembrete.getDatahora());
-        valores.put(DatabaseHelper.LEMBRETE_ESTADO, lembrete.getEstado());
-        valores.put(DatabaseHelper.LEMBRETE_LIVRO, lembrete.getLivro().getId());
+        ContentValues valores = buildContentValues(SALVAR, lembrete);
 
         return getDatabase().insert(DatabaseHelper.LEMBRETE_TABLE, null, valores);
     }
 
     public long atualizarLembrete(Lembrete lembrete) {
-        ContentValues valores = new ContentValues();
-        valores.put(DatabaseHelper.LEMBRETE_ID, lembrete.getId());
-        valores.put(DatabaseHelper.LEMBRETE_DATA, lembrete.getDatahora());
-        valores.put(DatabaseHelper.LEMBRETE_ESTADO, lembrete.getEstado());
-        valores.put(DatabaseHelper.LEMBRETE_LIVRO, lembrete.getLivro().getId());
+        ContentValues valores = buildContentValues(ATUALIZAR, lembrete);
 
         return getDatabase().update(DatabaseHelper.LEMBRETE_TABLE, valores, DatabaseHelper
                 .LEMBRETE_ID + " = ?", new String[]{String.valueOf(lembrete.getId())});
@@ -79,10 +74,23 @@ public class LembreteDao {
         return null;
     }
 
+    private ContentValues buildContentValues(int option, Lembrete lembrete){
+        ContentValues valores = new ContentValues();
+        valores.put(DatabaseHelper.LEMBRETE_DATA, lembrete.getDatahora());
+        valores.put(DatabaseHelper.LEMBRETE_ESTADO, lembrete.getEstado());
+        valores.put(DatabaseHelper.LEMBRETE_LIVRO, lembrete.getLivro().getId());
+        valores.put(DatabaseHelper.LEMBRETE_REPETE, lembrete.getRepete());
+
+        if (option == ATUALIZAR) {
+            valores.put(DatabaseHelper.LEMBRETE_ID, lembrete.getId());
+        }
+        return valores;
+    }
+
     private String setJoinQuery() {
-        return "SELECT le." + DatabaseHelper.LEMBRETE_ID + ", le." + DatabaseHelper.LEMBRETE_DATA
-                + ", le." + DatabaseHelper.LEMBRETE_ESTADO + ", le." + DatabaseHelper.LEMBRETE_LIVRO
-                + ", li." + DatabaseHelper.LIVRO_ID + ", li." + DatabaseHelper.LIVRO_FOTO
+        return "SELECT le." + DatabaseHelper.LEMBRETE_ID + ", le." + DatabaseHelper.LEMBRETE_REPETE
+                + ", le." + DatabaseHelper.LEMBRETE_ESTADO + ", le." + DatabaseHelper.LEMBRETE_DATA
+                + ", le." + DatabaseHelper.LEMBRETE_LIVRO +  ", li." + DatabaseHelper.LIVRO_FOTO
                 + ", li." + DatabaseHelper.LIVRO_NOME + ", li." + DatabaseHelper.LIVRO_TOTAL_PAGINAS
                 + " FROM "
                 + DatabaseHelper.LEMBRETE_TABLE + " le INNER JOIN " + DatabaseHelper.LIVRO_TABLE
@@ -91,7 +99,7 @@ public class LembreteDao {
 
     private Lembrete getLembrete(Cursor cursor) {
         Livro livro = new Livro(
-                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LIVRO_ID)),
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_LIVRO)),
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.LIVRO_NOME)),
                 cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LIVRO_TOTAL_PAGINAS)),
                 cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.LIVRO_FOTO))
@@ -100,7 +108,8 @@ public class LembreteDao {
                 cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_ID)),
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_DATA)),
                 livro,
-                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_ESTADO))
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_ESTADO)),
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.LEMBRETE_REPETE))
         );
     }
 

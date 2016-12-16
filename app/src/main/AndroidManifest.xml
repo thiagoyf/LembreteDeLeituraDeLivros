@@ -9,9 +9,6 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
-    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/bookmark"
@@ -34,9 +31,13 @@
         <activity
             android:name=".CadastrarLembreteActivity"
             android:label="@string/title_activity_cadastrar_lembrete"/>
-        <activity android:name=".ListarLembretesActivity">
+        <activity
+            android:name=".ListarLembretesActivity"
+            android:label="@string/title_activity_listar_lembretes">
         </activity>
-        <activity android:name=".LembreteActivity">
+        <activity
+            android:name=".LembreteActivity"
+            android:label="@string/title_activity_lembrete">
         </activity>
     </application>
 

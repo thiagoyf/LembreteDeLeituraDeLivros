@@ -8,16 +8,22 @@
 
     <TextView
         android:id="@+id/lembrete_data"
+        android:layout_marginBottom="@dimen/custom_dimen_10dp"
         style="@style/CustomTextView"/>
 
     <TextView
         android:id="@+id/lembrete_hora"
-        android:layout_marginTop="@dimen/custom_dimen_10dp"
         android:layout_marginBottom="@dimen/custom_dimen_10dp"
         style="@style/CustomTextView"/>
 
     <TextView
         android:id="@+id/lembrete_livro"
+        android:layout_marginBottom="@dimen/custom_dimen_10dp"
+        style="@style/CustomTextView"/>
+
+    <TextView
+        android:id="@+id/lembrete_repete"
+        android:layout_marginBottom="@dimen/custom_dimen_10dp"
         style="@style/CustomTextView"/>
 
 </LinearLayout>

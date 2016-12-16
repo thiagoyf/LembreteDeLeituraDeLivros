@@ -29,6 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String LEMBRETE_DATA = "data_hora";
     public static final String LEMBRETE_ESTADO = "estado";
     public static final String LEMBRETE_LIVRO = "livro_id";
+    public static final String LEMBRETE_REPETE = "repete";
 
     // CREATE TABLES
     public static final String CREATE_LIVRO_TABLE = "CREATE TABLE IF NOT EXISTS "
@@ -43,6 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + LEMBRETE_DATA + " TEXT, "
             + LEMBRETE_LIVRO + " INTEGER, "
             + LEMBRETE_ESTADO + " INTEGER, "
+            + LEMBRETE_REPETE + " INTEGER, "
             + "FOREIGN KEY ("
             + LEMBRETE_LIVRO + ") REFERENCES "
             + LIVRO_TABLE + " ("

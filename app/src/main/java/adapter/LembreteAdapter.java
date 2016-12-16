@@ -20,7 +20,7 @@ import util.DataUtil;
  * Created by thiagoyf on 12/15/16.
  */
 
-public class LembreteAdapter extends BaseAdapter{
+public class LembreteAdapter extends BaseAdapter {
 
     private Context context;
     private List<Lembrete> lembretes;
@@ -49,23 +49,31 @@ public class LembreteAdapter extends BaseAdapter{
     public View getView(int i, View view, ViewGroup viewGroup) {
         Lembrete lembrete = lembretes.get(i);
 
-        if (view == null){
+        if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.lembrete, null);
         }
 
         TextView txtData = (TextView) view.findViewById(R.id.lembrete_data);
-        String data = context.getString(R.string.listarLembretes_txtData) + DataUtil.formatDataDbPt(lembrete.getDatahora());
+        String data = context.getString(R.string.listarLembretes_txtData) + DataUtil
+                .formatDataDbPt(lembrete.getDatahora());
         txtData.setText(data);
 
         TextView txtHora = (TextView) view.findViewById(R.id.lembrete_hora);
-        String hora = context.getString(R.string.listarLembretes_txtHora) + DataUtil.formatHoraDbPt(lembrete.getDatahora());
+        String hora = context.getString(R.string.listarLembretes_txtHora) + DataUtil
+                .formatHoraDbPt(lembrete.getDatahora());
         txtHora.setText(hora);
 
         TextView txtLivro = (TextView) view.findViewById(R.id.lembrete_livro);
-        String titulo = context.getString(R.string.listarLembretes_txtLivro) + lembrete.getLivro().getNome();
+        String titulo = context.getString(R.string.listarLembretes_txtLivro) + lembrete.getLivro
+                ().getNome();
         txtLivro.setText(titulo);
+
+        TextView txtRepete = (TextView) view.findViewById(R.id.lembrete_repete);
+        String repete = context.getString(R.string.listarLembretes_txtRepetir) + lembrete
+                .getRepeteDia();
+        txtRepete.setText(repete);
 
         return view;
     }
