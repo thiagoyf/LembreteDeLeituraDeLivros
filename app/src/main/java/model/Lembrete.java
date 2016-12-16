@@ -7,23 +7,25 @@ package model;
 public class Lembrete {
     private int id;
     private String datahora;
-    private int livroId;
+    private int estado;
+    private Livro livro;
 
     public Lembrete() {
     }
 
-    public Lembrete(int id, String datahora, int livroId){
+    public Lembrete(int id, String datahora, Livro livro, int estado){
         this.id = id;
         this.datahora = datahora;
-        this.livroId = livroId;
+        this.livro = livro;
+        this.estado = estado;
     }
 
-    public int getLivroId() {
-        return livroId;
+    public Livro getLivro() {
+        return livro;
     }
 
-    public void setLivroId(int livroId) {
-        this.livroId = livroId;
+    public void setLivro(Livro livro) {
+        this.livro = livro;
     }
 
     public int getId() {
@@ -42,4 +44,21 @@ public class Lembrete {
         this.datahora = datahora;
     }
 
+    /**
+     * Pega o estado do LembreteActivity, sendo 0 terminado/concluido e 1 em andamento
+     *
+     * @return o estado sendo 0 completado e 1 em andamento
+     */
+    public int getEstado(){
+        return this.estado;
+    }
+
+    /**
+     * Modifica o estado do LembreteActivity, sendo 0 terminado/concluido e 1 em andamento
+     *
+     * @param estado 0 completado e 1 em andamento
+     */
+    public void setEstado(int estado){
+        this.estado = estado;
+    }
 }

@@ -50,16 +50,7 @@ public class CadastrarLivroActivity extends AppCompatActivity {
         String totalPaginas = edtLivroTotalPaginas.getText().toString();
         byte[] image = imageViewToByte(imgLivro);
 
-        boolean validacao = true;
-        if (nome.equals("")) {
-            validacao = false;
-            edtLivroNome.setError(getString(R.string.campoObrigatório));
-        }
-
-        if (totalPaginas.equals("")) {
-            validacao = false;
-            edtLivroTotalPaginas.setError(getString(R.string.campoObrigatório));
-        }
+        boolean validacao = validacao();
 
         if (validacao) {
             Livro livro = new Livro();
@@ -85,6 +76,22 @@ public class CadastrarLivroActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private boolean validacao(){
+        boolean validacao = true;
+
+        if (edtLivroNome.getText().toString().equals("")) {
+            validacao = false;
+            edtLivroNome.setError(getString(R.string.campoObrigatório));
+        }
+
+        if (edtLivroTotalPaginas.getText().toString().equals("")) {
+            validacao = false;
+            edtLivroTotalPaginas.setError(getString(R.string.campoObrigatório));
+        }
+
+        return validacao;
     }
 
     public void pegaImagem(View view) {
@@ -121,7 +128,6 @@ public class CadastrarLivroActivity extends AppCompatActivity {
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                Log.d("ImagePicker", getString(R.string.erroImagem));
                 Toast.makeText(this, getString(R.string.erroImagem),
                         Toast.LENGTH_LONG).show();
             }

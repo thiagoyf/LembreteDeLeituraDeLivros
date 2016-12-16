@@ -7,45 +7,71 @@ import java.util.Calendar;
  */
 
 public class DataUtil {
-    public static String[] formatDbPt(String data){
-        String[] splitDataEHora = data.split(" ");
-        String[] splitData = splitDataEHora[0].split("-");
+    public static String formatDataDbPt(String data){
+        String[] splitDataHora = data.split(" ");
+        String[] splitData = splitDataHora[0].split("-");
 
-        splitDataEHora[0] = splitData[2] + "-" + splitData[1] + "-" + splitData[0];
-        return splitDataEHora;
+        return splitData[2] + "-" + splitData[1] + "-" + splitData[0];
     }
 
-    public static String formatPtDb(String data, String hora){
+    public static String formatHoraDbPt(String data) {
+        String[] splitDataEHora = data.split(" ");
+
+        return splitDataEHora[1];
+    }
+
+    public static String formatPtDb(String data, String hora) {
+        if (data == null) {
+            return "0000-00-00 " + hora;
+        }
+
         String[] splitData = data.split("-");
+
+        if (hora == null) {
+            return splitData[2] + "-" + splitData[1] + "-" + splitData[0] + " 00:00";
+        }
+
         return splitData[2] + "-" + splitData[1] + "-" + splitData[0] + " " + hora;
     }
 
-    public static boolean dataFutura(String data, String hora){
+    public static boolean dataFutura(String data, String hora) {
         Calendar currentTime = Calendar.getInstance();
         currentTime.set(Calendar.SECOND, 0);
         currentTime.set(Calendar.MILLISECOND, 0);
 
         Calendar paramDate = stringToCalendar(data, hora);
 
-        if (paramDate.after(currentTime)){
+        if (paramDate.after(currentTime)) {
             return true;
         }
 
         return false;
     }
 
-    public static Calendar stringToCalendar(String data, String hora){
+    public static Calendar stringToCalendar(String data, String hora) {
         Calendar paramDate = Calendar.getInstance();
 
-        String[] splitData = data.split("-");
-        String[] splitHora = hora.split(":");
+        int year = 0;
+        int month = 0;
+        int day = 0;
 
-        int year = Integer.parseInt(splitData[2]);
-        int month = Integer.parseInt(splitData[1]) - 1;
-        int day = Integer.parseInt(splitData[0]);
+        if (data != null) {
+            String[] splitData = data.split("-");
 
-        int hour = Integer.parseInt(splitHora[0]);
-        int minute = Integer.parseInt(splitHora[1]);
+            year = Integer.parseInt(splitData[2]);
+            month = Integer.parseInt(splitData[1]) - 1;
+            day = Integer.parseInt(splitData[0]);
+        }
+
+        int hour = 0;
+        int minute = 0;
+
+        if (hora != null) {
+            String[] splitHora = hora.split(":");
+
+            hour = Integer.parseInt(splitHora[0]);
+            minute = Integer.parseInt(splitHora[1]);
+        }
 
         paramDate.set(Calendar.YEAR, year);
         paramDate.set(Calendar.MONTH, month);

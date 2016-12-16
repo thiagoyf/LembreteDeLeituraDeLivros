@@ -25,7 +25,7 @@ public class LivroAdapter extends BaseAdapter {
     private Context context;
     private List<Livro> livros;
 
-    public LivroAdapter (Context context, List<Livro> livros){
+    public LivroAdapter(Context context, List<Livro> livros) {
         this.context = context;
         this.livros = livros;
     }
@@ -42,14 +42,14 @@ public class LivroAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return livros.get(i).getId();
+        return i;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         Livro livro = livros.get(i);
 
-        if (view == null){
+        if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.livro, null);
@@ -62,11 +62,14 @@ public class LivroAdapter extends BaseAdapter {
             imagem.setImageResource(R.drawable.no_image_available);
         }
 
-        TextView nome = (TextView) view.findViewById(R.id.livro_nome);
-        nome.setText("Título do Livro: " + livro.getNome());
+        TextView txtNome = (TextView) view.findViewById(R.id.livro_nome);
+        String titulo = context.getString(R.string.listarLivros_txtTitulo) + livro.getNome();
+        txtNome.setText(titulo);
 
-        TextView totalPaginas = (TextView) view.findViewById(R.id.livro_totalPaginas);
-        totalPaginas.setText("Total de Páginas: " + livro.getTotalPaginas());
+        TextView txtTotalPaginas = (TextView) view.findViewById(R.id.livro_totalPaginas);
+        String totalPaginas = context.getString(R.string.listarLivros_txtTotalPaginas) + livro
+                .getTotalPaginas();
+        txtTotalPaginas.setText(totalPaginas);
 
         return view;
     }

@@ -30,4 +30,10 @@ public class ListarLivrosActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listarLivros_listaDeLivros);
         listView.setAdapter(livroAdapter);
     }
+
+    @Override
+    protected void onDestroy() {
+        livroDao.close();
+        super.onDestroy();
+    }
 }
