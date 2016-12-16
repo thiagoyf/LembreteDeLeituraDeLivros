@@ -24,11 +24,9 @@ public class LembreteAdapter extends BaseAdapter{
 
     private Context context;
     private List<Lembrete> lembretes;
-    private List<Livro> livros;
 
-    public LembreteAdapter(Context context, List<Livro> livros, List<Lembrete> lembretes) {
+    public LembreteAdapter(Context context, List<Lembrete> lembretes) {
         this.context = context;
-        this.livros = livros;
         this.lembretes = lembretes;
     }
 
@@ -50,7 +48,6 @@ public class LembreteAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         Lembrete lembrete = lembretes.get(i);
-        Livro livro = livros.get(i);
 
         if (view == null){
             LayoutInflater layoutInflater = (LayoutInflater)
@@ -59,15 +56,15 @@ public class LembreteAdapter extends BaseAdapter{
         }
 
         TextView txtData = (TextView) view.findViewById(R.id.lembrete_data);
-        String data = context.getString(R.string.listarLembretes_txtData) + DataUtil.formatDbPt(lembrete.getDatahora())[0];
+        String data = context.getString(R.string.listarLembretes_txtData) + DataUtil.formatDataDbPt(lembrete.getDatahora());
         txtData.setText(data);
 
         TextView txtHora = (TextView) view.findViewById(R.id.lembrete_hora);
-        String hora = context.getString(R.string.listarLembretes_txtHora) + DataUtil.formatDbPt(lembrete.getDatahora())[1];
+        String hora = context.getString(R.string.listarLembretes_txtHora) + DataUtil.formatHoraDbPt(lembrete.getDatahora());
         txtHora.setText(hora);
 
         TextView txtLivro = (TextView) view.findViewById(R.id.lembrete_livro);
-        String titulo = context.getString(R.string.listarLembretes_txtLivro) + livro.getNome();
+        String titulo = context.getString(R.string.listarLembretes_txtLivro) + lembrete.getLivro().getNome();
         txtLivro.setText(titulo);
 
         return view;

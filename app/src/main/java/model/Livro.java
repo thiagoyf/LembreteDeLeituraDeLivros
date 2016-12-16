@@ -51,4 +51,9 @@ public class Livro {
     public void setFoto(byte[] foto){
         this.foto = foto;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

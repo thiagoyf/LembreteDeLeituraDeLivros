@@ -24,9 +24,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String LIVRO_TOTAL_PAGINAS = "total_paginas";
     public static final String LIVRO_FOTO = "foto";
 
-    // Tabela Lembrete
+    // Tabela LembreteActivity
     public static final String LEMBRETE_ID = "id";
     public static final String LEMBRETE_DATA = "data_hora";
+    public static final String LEMBRETE_ESTADO = "estado";
     public static final String LEMBRETE_LIVRO = "livro_id";
 
     // CREATE TABLES
@@ -41,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + LEMBRETE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + LEMBRETE_DATA + " TEXT, "
             + LEMBRETE_LIVRO + " INTEGER, "
+            + LEMBRETE_ESTADO + " INTEGER, "
             + "FOREIGN KEY ("
             + LEMBRETE_LIVRO + ") REFERENCES "
             + LIVRO_TABLE + " ("

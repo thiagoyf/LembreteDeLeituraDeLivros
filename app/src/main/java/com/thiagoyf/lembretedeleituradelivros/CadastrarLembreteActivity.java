@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,14 +27,14 @@ import util.DataUtil;
 
 public class CadastrarLembreteActivity extends AppCompatActivity {
 
-    private EditText edtData;
-    private EditText edtHora;
-    private Spinner spinner;
+    private EditText edtData, edtHora;
+    private Spinner spinnerLivros, spinnerFrquencia;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
     private List<Livro> livros;
-    private List<String> nomeLivros;
-    private SpinnerLivroAdapter spinnerLivroAdapter;
+
+    // por imagem spinner?
+    // private SpinnerLivroAdapter spinnerLivroAdapter;
 
     private LivroDao livroDao;
     private LembreteDao lembreteDao;
@@ -46,12 +47,13 @@ public class CadastrarLembreteActivity extends AppCompatActivity {
         edtData = (EditText) findViewById(R.id.cadastrarLembrete_data);
         edtHora = (EditText) findViewById(R.id.cadastrarLembrete_tempo);
 
-        spinner = (Spinner) findViewById(R.id.cadastrarLembrete_livro);
+        spinnerLivros = (Spinner) findViewById(R.id.cadastrarLembrete_livro);
+        spinnerFrquencia = (Spinner) findViewById(R.id.cadastrarLembrete_repeticao);
 
         livroDao = new LivroDao(this);
         lembreteDao = new LembreteDao(this);
 
-        setSpinner();
+        setSpinners();
     }
 
     public void selecionaData(View view) {
@@ -104,44 +106,21 @@ public class CadastrarLembreteActivity extends AppCompatActivity {
     }
 
     public void cadastrarLembrete(View view) {
-        String data = edtData.getText().toString();
+        String data = null;
+
+        if (edtData.isEnabled()) {
+            data = edtData.getText().toString();
+        }
+
         String hora = edtHora.getText().toString();
-        String livroSelecionado = null;
-        int idLivroSelecionado = -1;
 
-        boolean validacao = true;
-        if (data == null || data.equals("")) {
-            validacao = false;
-            edtData.setError(getString(R.string.campoObrigatório));
-        }
-
-        if (hora == null || hora.equals("")) {
-            validacao = false;
-            edtHora.setError(getString(R.string.campoObrigatório));
-        }
-
-        if (spinner != null && spinner.getSelectedItem() != null) {
-            livroSelecionado = spinner.getSelectedItem().toString();
-            idLivroSelecionado = getIdLivro(livroSelecionado);
-        } else {
-            validacao = false;
-            Toast.makeText(this, getString(R.string.semLivro), Toast.LENGTH_LONG).show();
-        }
-
-        if (validacao) {
-            if (!DataUtil.dataFutura(data, hora)) {
-                validacao = false;
-                edtData.setError(getString(R.string.selecioneDataFutura));
-                edtHora.setError(getString(R.string.selecioneDataFutura));
-                Toast.makeText(this, getString(R.string.selecioneDataFutura), Toast.LENGTH_LONG)
-                        .show();
-            }
-        }
+        boolean validacao = validacao();
 
         if (validacao) {
             Lembrete lembrete = new Lembrete();
             lembrete.setDatahora(DataUtil.formatPtDb(data, hora));
-            lembrete.setLivroId(idLivroSelecionado);
+            lembrete.setEstado(1);
+            lembrete.setLivro((Livro) spinnerLivros.getSelectedItem());
 
             long resultado = lembreteDao.salvarLembrete(lembrete);
 
@@ -158,31 +137,56 @@ public class CadastrarLembreteActivity extends AppCompatActivity {
         }
     }
 
-    private void setSpinner() {
+    private boolean validacao() {
+        boolean validacao = true;
+
+        if (edtData.isEnabled() && edtData.getText().toString().equals("")) {
+            validacao = false;
+            edtData.setError(getString(R.string.campoObrigatório));
+        }
+
+        if (edtHora.getText().toString().equals("")) {
+            validacao = false;
+            edtHora.setError(getString(R.string.campoObrigatório));
+        }
+
+        if (validacao) {
+            if (!DataUtil.dataFutura(edtData.getText().toString(), edtHora.getText().toString())) {
+                validacao = false;
+                Toast.makeText(this, getString(R.string.selecioneDataFutura), Toast.LENGTH_LONG)
+                        .show();
+            }
+        }
+
+        if (spinnerLivros == null || spinnerLivros.getSelectedItem() == null) {
+            validacao = false;
+            Toast.makeText(this, getString(R.string.semLivro), Toast.LENGTH_LONG).show();
+        }
+
+        return validacao;
+    }
+
+    private void setSpinners(){
+        setSpinnerLivros();
+        setSpinnerFrequencia();
+    }
+
+    private void setSpinnerLivros() {
         livros = livroDao.listarLivro();
         livroDao.close();
 
-        nomeLivros = setNomeLivros();
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, livros);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinnerLivroAdapter = new SpinnerLivroAdapter(this, nomeLivros);
-        spinner.setAdapter(spinnerLivroAdapter);
+        spinnerLivros.setAdapter(spinnerArrayAdapter);
     }
 
-    private List<String> setNomeLivros() {
-        List<String> titulos = new ArrayList<String>();
-        for (Livro livro : livros) {
-            titulos.add(livro.getNome());
-        }
-        return titulos;
-    }
-
-    private int getIdLivro(String nome) {
-        for (Livro livro : livros) {
-            if (livro.getNome().equals(nome)) {
-                return livro.getId();
-            }
-        }
-        return -1;
+    private void setSpinnerFrequencia() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.cadastrarLembrete_frequencia, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFrquencia.setAdapter(adapter);
     }
 
     @Override

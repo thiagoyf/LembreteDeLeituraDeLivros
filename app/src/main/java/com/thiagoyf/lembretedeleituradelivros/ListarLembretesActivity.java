@@ -16,11 +16,9 @@ import model.Livro;
 public class ListarLembretesActivity extends AppCompatActivity {
 
     private ListView listView;
-    private List<Livro> livros;
     private List<Lembrete> lembretes;
     private LembreteAdapter lembreteAdapter;
 
-    private LivroDao livroDao;
     private LembreteDao lembreteDao;
 
     @Override
@@ -30,26 +28,11 @@ public class ListarLembretesActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listarLembrete_listaDeLembretes);
 
-        livroDao = new LivroDao(this);
         lembreteDao = new LembreteDao(this);
         lembretes = lembreteDao.listarLembrete();
-        listaLivros();
 
-        lembreteAdapter = new LembreteAdapter(this, livros, lembretes);
+        lembreteAdapter = new LembreteAdapter(this, lembretes);
         listView.setAdapter(lembreteAdapter);
-    }
-
-    private void listaLivros(){
-        livros = new ArrayList<Livro>();
-        List<Livro> dbLivros = livroDao.listarLivro();
-
-        for (Lembrete lembrete : lembretes){
-            for (Livro livro : dbLivros){
-                if (livro.getId() == lembrete.getLivroId()) {
-                    livros.add(livro);
-                }
-            }
-        }
     }
 
     @Override
