@@ -80,10 +80,10 @@ public class LembreteDao {
     }
 
     private String setJoinQuery() {
-        return "SELECT " + DatabaseHelper.LEMBRETE_ID + ", " + DatabaseHelper.LEMBRETE_DATA + ", "
-                + DatabaseHelper.LEMBRETE_ESTADO + ", " + DatabaseHelper.LEMBRETE_LIVRO + ", "
-                + DatabaseHelper.LIVRO_ID + ", " + DatabaseHelper.LIVRO_FOTO + ", "
-                + DatabaseHelper.LIVRO_NOME + ", " + DatabaseHelper.LIVRO_TOTAL_PAGINAS
+        return "SELECT le." + DatabaseHelper.LEMBRETE_ID + ", le." + DatabaseHelper.LEMBRETE_DATA
+                + ", le." + DatabaseHelper.LEMBRETE_ESTADO + ", le." + DatabaseHelper.LEMBRETE_LIVRO
+                + ", li." + DatabaseHelper.LIVRO_ID + ", li." + DatabaseHelper.LIVRO_FOTO
+                + ", li." + DatabaseHelper.LIVRO_NOME + ", li." + DatabaseHelper.LIVRO_TOTAL_PAGINAS
                 + " FROM "
                 + DatabaseHelper.LEMBRETE_TABLE + " le INNER JOIN " + DatabaseHelper.LIVRO_TABLE
                 + " li ON le." + DatabaseHelper.LEMBRETE_LIVRO + " = li." + DatabaseHelper.LIVRO_ID;
