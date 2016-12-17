@@ -7,6 +7,18 @@ import java.util.Calendar;
  */
 
 public class DataUtil {
+    public static int getHora(String data){
+        String horas = formatHoraDbPt(data);
+        String[] hora = horas.split(":");
+        return Integer.parseInt(hora[0]);
+    }
+
+    public static int getMinute(String data){
+        String horas = formatHoraDbPt(data);
+        String[] hora = horas.split(":");
+        return Integer.parseInt(hora[1]);
+    }
+
     public static String formatDataDbPt(String data){
         String[] splitDataHora = data.split(" ");
         String[] splitData = splitDataHora[0].split("-");

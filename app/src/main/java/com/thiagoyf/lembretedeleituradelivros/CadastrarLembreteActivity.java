@@ -1,6 +1,10 @@
 package com.thiagoyf.lembretedeleituradelivros;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +29,7 @@ import dao.LivroDao;
 import model.Lembrete;
 import model.Livro;
 import util.DataUtil;
+import util.ScheduleNotificationUtil;
 
 public class CadastrarLembreteActivity extends AppCompatActivity {
 
@@ -127,6 +132,9 @@ public class CadastrarLembreteActivity extends AppCompatActivity {
             long resultado = lembreteDao.salvarLembrete(lembrete);
 
             if (resultado != -1) {
+                lembrete.setId((int) resultado);
+
+                ScheduleNotificationUtil.setScheduleNotification(this, lembrete, true);
                 Toast.makeText(this, getString(R.string.lembreteCadastradoSucesso),
                         Toast.LENGTH_LONG).show();
 

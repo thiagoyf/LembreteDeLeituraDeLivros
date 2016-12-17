@@ -10,6 +10,7 @@ import dao.LembreteDao;
 import model.Lembrete;
 import model.Livro;
 import util.DataUtil;
+import util.ScheduleNotificationUtil;
 
 public class LembreteActivity extends AppCompatActivity {
 
@@ -79,6 +80,8 @@ public class LembreteActivity extends AppCompatActivity {
     }
 
     public void completar(View view) {
+        ScheduleNotificationUtil.setScheduleNotification(this, lembrete, false);
+
         lembrete.setEstado(0);
         long result = lembreteDao.atualizarLembrete(lembrete);
 
